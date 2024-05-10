@@ -1,5 +1,8 @@
-extends Node
+extends Node3D
 
+var speed = 15
+var max_health = null
+var is_ai_controlled = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
