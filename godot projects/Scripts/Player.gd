@@ -3,7 +3,7 @@ var bullet = load("res://Scenes/bullet.tscn")
 
 var speed
 const WALK_SPEED = 5.0
-const SPRINT_SPEED = 8.0
+const SPRINT_SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = .003
 
@@ -41,18 +41,22 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 	
 	if Input.is_action_just_pressed("shoot"):
-		var bullet = bullet.instantiate()
-		bullet.position = camera.global_position
-		bullet.transform.basis = camera.global_transform.basis
-		get_parent().add_child(bullet)
+		var b = bullet.instantiate()
+		b.position = camera.global_position
+		b.transform.basis = camera.global_transform.basis
+		get_parent().add_child(b)
+	if Input.is_action_pressed("zoom_in"):
+		camera.fov = lerp(camera.fov, 0.1, delta * 10.0)
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
 	# handle sprint
 	if Input.is_action_pressed("sprint"):
+		camera.fov = lerp(camera.fov, 50.0, delta * 8.0)
 		speed = SPRINT_SPEED
 	else:
+		
 		speed = WALK_SPEED 
 	
 	# Get the input direction and handle the movement/deceleration.

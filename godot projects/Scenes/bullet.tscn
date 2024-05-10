@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdrdd42w5a5ss"]
+[gd_scene load_steps=5 format=3 uid="uid://bdrdd42w5a5ss"]
 
 [ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_xjngy"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_wl7nd"]
+[sub_resource type="BoxMesh" id="BoxMesh_cichg"]
+lightmap_size_hint = Vector2i(14, 21)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_x36ex"]
+shading_mode = 0
+albedo_color = Color(0.691305, 0.226165, 0, 1)
+grow_amount = 0.1
+distance_fade_max_distance = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_120hr"]
 
@@ -10,9 +17,11 @@
 script = ExtResource("1_xjngy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, -3.04919e-24, -3.04919e-24, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0)
-mesh = SubResource("BoxMesh_wl7nd")
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_cichg")
+surface_material_override/0 = SubResource("ORMMaterial3D_x36ex")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.2, 0, -3.04919e-24, -3.04919e-24, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0, 0, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visibility_parent = NodePath("../MeshInstance3D")
 shape = SubResource("BoxShape3D_120hr")
