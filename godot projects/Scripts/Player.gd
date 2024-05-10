@@ -1,4 +1,5 @@
 extends CharacterBody3D
+var bullet = load("res://Scenes/bullet.tscn")
 
 var speed
 const WALK_SPEED = 5.0
@@ -31,6 +32,7 @@ func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
 			get_tree().quit()
+			print("Game Exit")
 
 
 func _physics_process(delta):
@@ -38,7 +40,11 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-
+	if Input.is_action_just_pressed("shoot"):
+		var bullet = bullet.instantiate()
+		bullet.position = camera.global_position
+		bullet.transform.basis = camera.global_transform.basis
+		get_parent().add_child(bullet)
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
